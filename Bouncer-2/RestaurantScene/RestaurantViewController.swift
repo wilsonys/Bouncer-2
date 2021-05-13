@@ -15,7 +15,6 @@ class RestaurantViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -34,6 +33,14 @@ class RestaurantViewController: UIViewController {
             destination.restaurant = restaurants.restaurantArray[selectedIndexPath.row]
         }
     }
+    
+//    @IBAction func unwindFromRestaurantDetail(segue: UIStoryboardSegue) {
+//        let source = segue.source as! RestaurantDetailViewController
+//        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+//            restaurants.restaurantArray[selectedIndexPath.row] = source.restaurant
+//            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+//        }
+//    }
 
 
 }

@@ -13,20 +13,37 @@ class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var priceScaleLabel: UILabel!
     @IBOutlet weak var cuisineLabel: UILabel!
-    @IBOutlet weak var checkBoxButton: UIButton!
     @IBOutlet weak var attendeesLabel: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var attendeeSwitch: UISwitch!
     
     var restaurant: Restaurant!
+    let regionDistance: CLLocationDegrees = 750.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        attendeeSwitch.isOn = false
         
         if restaurant == nil {
             restaurant = Restaurant(location_id: "", brand_name: "", cuisine_type: "", price_scale: 0, latitude: 0.0, longitude: 0.0)
         }
         
         updateUserInterface()
-
+    }
+    
+    func setUpMapView() {
+        var coordinate = CLLocationCoordinate2D()
+        coordinate.latitude = restaurant.latitude
+        coordinate.longitude = restaurant.longitude
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = restaurant.brand_name
+        mapView.addAnnotation(annotation)
+        
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+        mapView.setRegion(region, animated: true)
     }
     
     func updateUserInterface() {
@@ -43,17 +60,15 @@ class RestaurantDetailViewController: UIViewController {
         // update priceLabel
         priceScaleLabel.text = "\(restaurant.price_scale)/5"
         
+        setUpMapView()
     }
     
-    @IBAction func checkBoxToggled(_ sender: UIButton) {
-        if sender.isSelected {
-            // WORK ON THIS
-            sender.isSelected = false
-        } else {
-            sender.isSelected = true
-        }
+    @IBAction func attendeeSwitchToggled(_ sender: UISwitch) {
+        if !sender.isOn {
+            // currentUser is attending this place
+            // update the attendees label in RestaurantViewController
+        } // otherwise they are not attending this place
     }
     
-
 
 }
