@@ -8,12 +8,55 @@
 import UIKit
 
 class RestaurantViewController: UIViewController {
-
+    @IBOutlet weak var tableView: UITableView!
+    
+    var restaurants = Restaurants()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        restaurants.getData {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            print("Getting json data!")
+        }
     }
- 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowRestaurant" {
+            let destination = segue.destination as! RestaurantDetailViewController
+            let selectedIndexPath = tableView.indexPathForSelectedRow!
+            destination.restaurant = restaurants.restaurantArray[selectedIndexPath.row]
+        }
+    }
+
 
 }
+
+extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return restaurants.restaurantArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell", for: indexPath) as! RestaurantTableViewCell
+        cell.nameLabel.text = restaurants.restaurantArray[indexPath.row].brand_name
+        
+        // change cuisine_type into an array to grab just the first type in the string
+        let cuisineText = restaurants.restaurantArray[indexPath.row].cuisine_type
+        let cuisineArray = cuisineText.components(separatedBy: ";")
+        cell.friendsLabel.text = cuisineArray[0]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 225
+    }
+}
+
