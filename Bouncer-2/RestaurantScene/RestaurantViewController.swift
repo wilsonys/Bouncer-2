@@ -28,6 +28,34 @@ class RestaurantViewController: UIViewController {
             }
             print("Getting json data!")
         }
+        loadData()
+    }
+    
+    func loadData() {
+        let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentURL = directoryURL.appendingPathComponent("restaurants").appendingPathExtension("json")
+        
+        guard let data = try? Data(contentsOf: documentURL) else {return}
+        let jsonDecoder = JSONDecoder()
+        do {
+            restaurants.restaurantArray = try jsonDecoder.decode(Array<Restaurant>.self, from: data)
+            tableView.reloadData()
+        } catch {
+            print("Error loading data \(error.localizedDescription)")
+        }
+    }
+    
+    func saveData() { // will use this anytime we need to update the friendsLabel???
+        let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentURL = directoryURL.appendingPathComponent("restaurants").appendingPathExtension("json")
+        
+        let jsonEncoder = JSONEncoder()
+        let data = try? jsonEncoder.encode(restaurants.restaurantArray)
+        do {
+            try data?.write(to: documentURL, options: .noFileProtection)
+        } catch {
+            print("Error: could not save data \(error.localizedDescription)")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

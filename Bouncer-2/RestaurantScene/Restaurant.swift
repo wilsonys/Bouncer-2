@@ -14,4 +14,5 @@ struct Restaurant: Codable {
     var price_scale: Int
     var latitude: Double
     var longitude: Double
+    var attendees: Int
 }
