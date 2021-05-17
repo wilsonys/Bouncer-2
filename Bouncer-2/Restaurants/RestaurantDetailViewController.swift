@@ -18,8 +18,10 @@ class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var attendeeSwitch: UISwitch!
     
     var restaurant: Restaurant!
+    var restaurantCount: RestaurantCount!
+    
     let regionDistance: CLLocationDegrees = 750.0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +31,19 @@ class RestaurantDetailViewController: UIViewController {
             restaurant = Restaurant(location_id: "", brand_name: "", cuisine_type: "", price_scale: 0, latitude: 0.0, longitude: 0.0)
         }
         
+        if restaurantCount == nil {
+            restaurantCount = RestaurantCount(restaurant: restaurant, currentUserAttending: false, attendeeCount: 0)
+        }
+        
         updateUserInterface()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if attendeeSwitch.isOn {
+            attendeeSwitch.isOn = true
+        } else {
+            attendeeSwitch.isOn = false
+        }
     }
     
     func setUpMapView() {
@@ -56,19 +70,30 @@ class RestaurantDetailViewController: UIViewController {
         cuisineLabel.text = cuisineTextFixed
         
         // update imageView
+        let cuisineArray = cuisineText.components(separatedBy: ";")
+        imageView.image = UIImage(named: cuisineArray[0])
         
         // update priceLabel
         priceScaleLabel.text = "\(restaurant.price_scale)/5"
+        
+        // update attendeesLabel
+        attendeesLabel.text = "\(restaurantCount.attendeeCount)"
         
         setUpMapView()
     }
     
     @IBAction func attendeeSwitchToggled(_ sender: UISwitch) {
-        if !sender.isOn {
-            // currentUser is attending this place
-            // update the attendees label in RestaurantViewController
-        } // otherwise they are not attending this place
+        if attendeeSwitch.isOn {
+            print("current user is attending")
+            restaurantCount.attendeeCount += 1
+            print("Total attending: \(restaurantCount.attendeeCount)")
+            attendeesLabel.text = "\(restaurantCount.attendeeCount)"
+            updateUserInterface()
+        } else {
+            print("current user is not attending")
+            restaurantCount.attendeeCount -= 1
+            print("Total attending: \(restaurantCount.attendeeCount)")
+            updateUserInterface()
+        }
     }
-    
-
 }

@@ -12,15 +12,16 @@ class RestaurantViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var restaurants = Restaurants()
+    
     var searchRestaurant = [Restaurant]()
     var searching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchBar.delegate = self
+            
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
         restaurants.getData {
             DispatchQueue.main.async {
@@ -28,8 +29,8 @@ class RestaurantViewController: UIViewController {
             }
             print("Getting json data!")
         }
+
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowRestaurant" {
@@ -42,6 +43,15 @@ class RestaurantViewController: UIViewController {
                 let selectedIndexPath = tableView.indexPathForSelectedRow!
                 destination.restaurant = restaurants.restaurantArray[selectedIndexPath.row]
             }
+        }
+    }
+    
+    @IBAction func unwindFromRestaurantDetail(segue: UIStoryboardSegue) {
+        let source = segue.source as! RestaurantDetailViewController
+        if source.attendeeSwitch.isOn {
+            source.attendeeSwitch.isOn = true
+        } else {
+            source.attendeeSwitch.isOn = false
         }
     }
     
@@ -59,25 +69,28 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell", for: indexPath) as! RestaurantTableViewCell
         if searching {
-            cell.nameLabel.text = searchRestaurant[indexPath.row].brand_name
+            cell.textLabel?.text = searchRestaurant[indexPath.row].brand_name
             
-            // change cuisine_type into an array to grab just the first type in the string
+//          change cuisine_type into an array to grab just the first type in the string
             let cuisineText = searchRestaurant[indexPath.row].cuisine_type
             let cuisineArray = cuisineText.components(separatedBy: ";")
-            cell.friendsLabel.text = cuisineArray[0]
-        } else {
-            cell.nameLabel.text = restaurants.restaurantArray[indexPath.row].brand_name
+            cell.detailTextLabel?.text = cuisineArray[0]
             
-            // change cuisine_type into an array to grab just the first type in the string
+        } else {
+            cell.textLabel?.text = restaurants.restaurantArray[indexPath.row].brand_name
+            
+//          change cuisine_type into an array to grab just the first type in the string
             let cuisineText = restaurants.restaurantArray[indexPath.row].cuisine_type
             let cuisineArray = cuisineText.components(separatedBy: ";")
-            cell.friendsLabel.text = cuisineArray[0]
+            cell.detailTextLabel?.text = cuisineArray[0]
+            
+
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 225
+        return 50
     }
 }
 

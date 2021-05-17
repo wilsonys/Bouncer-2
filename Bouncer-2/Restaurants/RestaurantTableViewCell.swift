@@ -8,7 +8,6 @@
 import UIKit
 
 class RestaurantTableViewCell: UITableViewCell {
-    @IBOutlet weak var restaurantImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var friendsLabel: UILabel!
     

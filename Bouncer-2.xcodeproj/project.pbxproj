@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4831F49E3EE49A83884E771E /* Pods_Bouncer_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85BE44790CB4D287ED638D68 /* Pods_Bouncer_2.framework */; };
+		75900808264F2ED000257F6D /* BouncerUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75900807264F2ED000257F6D /* BouncerUser.swift */; };
+		7590080A264F3C5B00257F6D /* BouncerUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75900809264F3C5B00257F6D /* BouncerUserViewController.swift */; };
+		7590080D264F3DB700257F6D /* BouncerUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590080C264F3DB700257F6D /* BouncerUsers.swift */; };
+		75900811264F630900257F6D /* PartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75900810264F630800257F6D /* PartyViewController.swift */; };
 		75A6F09E264B825D00096214 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A6F09D264B825D00096214 /* AppDelegate.swift */; };
 		75A6F0A0264B825D00096214 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A6F09F264B825D00096214 /* SceneDelegate.swift */; };
 		75A6F0A2264B825D00096214 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A6F0A1264B825D00096214 /* LoginViewController.swift */; };
@@ -25,6 +29,10 @@
 /* Begin PBXFileReference section */
 		29A52389AD809F1DD6968A79 /* Pods-Bouncer-2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bouncer-2.release.xcconfig"; path = "Target Support Files/Pods-Bouncer-2/Pods-Bouncer-2.release.xcconfig"; sourceTree = "<group>"; };
 		387284F53FC191FC9500756C /* Pods-Bouncer-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bouncer-2.debug.xcconfig"; path = "Target Support Files/Pods-Bouncer-2/Pods-Bouncer-2.debug.xcconfig"; sourceTree = "<group>"; };
+		75900807264F2ED000257F6D /* BouncerUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncerUser.swift; sourceTree = "<group>"; };
+		75900809264F3C5B00257F6D /* BouncerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncerUserViewController.swift; sourceTree = "<group>"; };
+		7590080C264F3DB700257F6D /* BouncerUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncerUsers.swift; sourceTree = "<group>"; };
+		75900810264F630800257F6D /* PartyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyViewController.swift; sourceTree = "<group>"; };
 		75A6F09A264B825D00096214 /* Bouncer-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bouncer-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A6F09D264B825D00096214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75A6F09F264B825D00096214 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +62,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7590080B264F3C7300257F6D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				75900807264F2ED000257F6D /* BouncerUser.swift */,
+				7590080C264F3DB700257F6D /* BouncerUsers.swift */,
+				75900809264F3C5B00257F6D /* BouncerUserViewController.swift */,
+			);
+			name = User;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		7590080F264F62C500257F6D /* Parties */ = {
+			isa = PBXGroup;
+			children = (
+				75900810264F630800257F6D /* PartyViewController.swift */,
+			);
+			path = Parties;
+			sourceTree = "<group>";
+		};
 		75A6F091264B825D00096214 = {
 			isa = PBXGroup;
 			children = (
@@ -78,7 +105,9 @@
 				75A6F09D264B825D00096214 /* AppDelegate.swift */,
 				75A6F09F264B825D00096214 /* SceneDelegate.swift */,
 				75A6F0A1264B825D00096214 /* LoginViewController.swift */,
-				75E61845264C964700CD8117 /* RestaurantScene */,
+				7590080F264F62C500257F6D /* Parties */,
+				7590080B264F3C7300257F6D /* User */,
+				75E61845264C964700CD8117 /* Restaurants */,
 				75A6F0A3264B825D00096214 /* Main.storyboard */,
 				75A6F0A6264B826E00096214 /* Assets.xcassets */,
 				75A6F0A8264B826E00096214 /* LaunchScreen.storyboard */,
@@ -88,7 +117,7 @@
 			path = "Bouncer-2";
 			sourceTree = "<group>";
 		};
-		75E61845264C964700CD8117 /* RestaurantScene */ = {
+		75E61845264C964700CD8117 /* Restaurants */ = {
 			isa = PBXGroup;
 			children = (
 				75E61848264C9F0700CD8117 /* Restaurant.swift */,
@@ -97,7 +126,7 @@
 				75E6184E264CA2F200CD8117 /* RestaurantTableViewCell.swift */,
 				75E6184C264C9FA100CD8117 /* RestaurantDetailViewController.swift */,
 			);
-			path = RestaurantScene;
+			path = Restaurants;
 			sourceTree = "<group>";
 		};
 		A3433AEB1FF8D23C5EA6386F /* Frameworks */ = {
@@ -252,12 +281,16 @@
 			files = (
 				75E61849264C9F0700CD8117 /* Restaurant.swift in Sources */,
 				75A6F0A2264B825D00096214 /* LoginViewController.swift in Sources */,
+				7590080D264F3DB700257F6D /* BouncerUsers.swift in Sources */,
 				75E61847264C968A00CD8117 /* RestaurantViewController.swift in Sources */,
 				75A6F09E264B825D00096214 /* AppDelegate.swift in Sources */,
+				7590080A264F3C5B00257F6D /* BouncerUserViewController.swift in Sources */,
 				75E6184F264CA2F200CD8117 /* RestaurantTableViewCell.swift in Sources */,
+				75900811264F630900257F6D /* PartyViewController.swift in Sources */,
 				75E6184B264C9F3200CD8117 /* Restaurants.swift in Sources */,
 				75E6184D264C9FA100CD8117 /* RestaurantDetailViewController.swift in Sources */,
 				75A6F0A0264B825D00096214 /* SceneDelegate.swift in Sources */,
+				75900808264F2ED000257F6D /* BouncerUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

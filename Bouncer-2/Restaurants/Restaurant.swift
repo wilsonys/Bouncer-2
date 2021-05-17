@@ -15,3 +15,9 @@ struct Restaurant: Codable {
     var latitude: Double
     var longitude: Double
 }
+
+struct RestaurantCount: Codable {
+    var restaurant: Restaurant
+    var currentUserAttending: Bool
+    var attendeeCount: Int
+}

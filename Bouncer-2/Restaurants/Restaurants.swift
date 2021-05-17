@@ -6,10 +6,17 @@
 //
 
 import Foundation
+import Firebase
 
 class Restaurants {
+    var db: Firestore!
+    
+    init() {
+        db = Firestore.firestore()
+    }
     
     var restaurantArray: [Restaurant] = []
+    var countArray: [RestaurantCount] = []
     var urlString = "https://raw.githubusercontent.com/rogerwangcs/boston-food-vis/master/restaurants.json"
     
     func getData(completed: @escaping()->()) {
@@ -33,9 +40,9 @@ class Restaurants {
             
             // deal with data
             do {
-                let returned = try JSONDecoder().decode([Restaurant].self, from: data!)
+                var returned = try JSONDecoder().decode([Restaurant].self, from: data!)
+                returned.sort(by: {$0.brand_name < $1.brand_name})
                 self.restaurantArray = returned
-                print("*** returned json: \(returned)")
             } catch {
                 print("JSON Error: \(error.localizedDescription)")
             }
@@ -43,4 +50,5 @@ class Restaurants {
         }
         task.resume()
     }
+    
 }
